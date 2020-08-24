@@ -1,8 +1,4 @@
-# Projeto WhatsApp Clone
-
-[![Hcode Treinamentos](https://www.hcode.com.br/res/img/hcode-200x100.png)](https://www.hcode.com.br)
-
-Projeto desenvolvido como exemplo do Curso Completo de JavaScript na Udemy.com.
+PROJETO DESENVOLVIDO DURANTE CURSO DE PROGRAMAÇÃO FOCADO EM JAVASCRIPT
 
 ### Projeto
 ![WhatsApp Clone](https://firebasestorage.googleapis.com/v0/b/hcode-com-br.appspot.com/o/whatsapp.jpg?alt=media&token=5fc78e3b-4871-424f-abfa-b765f2515d0c)

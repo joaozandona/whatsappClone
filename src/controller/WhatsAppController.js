@@ -1,22 +1,68 @@
 class WhatsAppController {
+  constructor() {
+    console.log("WhatsAppController OK");
 
-    constructor(){
+    this.elementsPrototype();
+    this.loadElements();
+    this.initEvents();
+  }
 
-        console.log('WhatsAppController OK');
+  loadElements() {
+    this.el = {};
 
-        this.loadElements();
+    document.querySelectorAll("[id]").forEach((element) => {
+      this.el[Format.getCamelCase(element.id)] = element;
+    });
+  }
 
+  elementsPrototype() {
+    Element.prototype.hide = function() {
+        this.style.display = 'none';
+        return this;
+    };
+    Element.prototype.show = function() {
+        this.style.display = 'block';
+        return this;
+    };
+    Element.prototype.toggle = function() {
+        this.style.display = (this.style.display === 'none') ? 'block' : 'none';
+        return this;
     }
-
-    loadElements(){
-
-        this.el = {};
-
-        document.querySelectorAll('[id]').forEach(element=>{
-
-            this.el[Format.getCamelCase(element.id)] = element;
-
+    Element.prototype.on = function(events, fn){
+        events.split(' ').forEach(event=>{
+            this.addEventListener(event, fn);
         });
+        return this;
+    } 
+    Element.prototype.css = function(styles){
+        for (let name in styles) {
+            this.style[name] = styles[name];
+        }
+        return this;
     }
+    Element.prototype.addClass = function(name){
+        this.classList.add(name);
+    }
+    Element.prototype.removeClass = function (name) {
+        this.classList.remove(name);
+        return this;
+    }
+    Element.prototype.toogleClass = function(name) {
+        this.classList.toogle(name);
+        return this;
+    }
+    Element.prototype.hasClass = function(name) {
+        return this.classList.contains(name)
+    }
+  }
+
+  initEvents(){
+
+    this.el.myPhoto.on('click', e=>{
+
+    });
+    
+
+  }
 
 }

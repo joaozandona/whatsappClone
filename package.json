@@ -4,7 +4,9 @@
   "description": "PROJETO DESENVOLVIDO DURANTE CURSO DE PROGRAMAÇÃO FOCADO EM JAVASCRIPT",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",

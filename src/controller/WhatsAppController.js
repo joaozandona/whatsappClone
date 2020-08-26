@@ -1,5 +1,6 @@
 import { Format } from "./../util/Format.js";
 import { CameraController } from "./CameraController.js";
+import { DocumentPreviewController } from "./DocumentPreviewController.js";
 
 export class WhatsAppController {
   constructor() {
@@ -163,22 +164,39 @@ export class WhatsAppController {
       this.el.containerTakePicture.hide();
       this.el.containerSendPicture.show();
     });
-    this.el.btnReshootPanelCamera.on('click', e => {
-        this.el.pictureCamera.hide();
-        this.el.videoCamera.show();
-        this.el.btnReshootPanelCamera.hide();
-        this.el.containerTakePicture.show();    
-        this.el.containerSendPicture.hide();
+    this.el.btnReshootPanelCamera.on("click", (e) => {
+      this.el.pictureCamera.hide();
+      this.el.videoCamera.show();
+      this.el.btnReshootPanelCamera.hide();
+      this.el.containerTakePicture.show();
+      this.el.containerSendPicture.hide();
     });
-    this.el.btnSendPicture.on('click', e => {
-        console.log(this.el.pictureCamera.src);
-    })
+    this.el.btnSendPicture.on("click", (e) => {
+      console.log(this.el.pictureCamera.src);
+    });
     this.el.btnAttachDocument.on("click", (e) => {
       this.closeAllMainPanel();
       this.el.panelDocumentPreview.addClass("open");
       this.el.panelDocumentPreview.css({
         height: "calc(100%)",
       });
+      this.el.inputDocument.click();
+    });
+    this.el.inputDocument.on("change", (e) => {
+      if (this.el.inputDocument.files.length) {
+        let file = this.el.inputDocument.files[0];
+        this._documentPreviewCOntroller = new DocumentPreviewController(file);
+        this._documentPreviewCOntroller
+          .getPreviewData()
+          .then((data) => {
+            this.el.imgPanelDocumentPreview.src = data;
+            this.el.imagePanelDocumentPreview.show();
+            this.el.filePanelDocumentPreview.hide();
+          })
+          .catch((err) => {
+            console.log("err", err);
+          });
+      }
     });
     this.el.btnClosePanelDocumentPreview.on("click", (e) => {
       this.closeAllMainPanel();

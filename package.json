@@ -1,0 +1,23 @@
+{
+  "name": "whatsappclone",
+  "version": "1.0.0",
+  "description": "PROJETO DESENVOLVIDO DURANTE CURSO DE PROGRAMAÇÃO FOCADO EM JAVASCRIPT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaozandona/whatsappClone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaozandona/whatsappClone/issues"
+  },
+  "homepage": "https://github.com/joaozandona/whatsappClone#readme",
+  "dependencies": {
+    "webpack": "^3.1.0",
+    "webpack-dev-server": "^2.11.5"
+  }
+}

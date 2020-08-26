@@ -185,11 +185,10 @@ export class WhatsAppController {
     this.el.inputDocument.on("change", (e) => {
       if (this.el.inputDocument.files.length) {
         let file = this.el.inputDocument.files[0];
-        this._documentPreviewCOntroller = new DocumentPreviewController(file);
-        this._documentPreviewCOntroller
-          .getPreviewData()
-          .then((data) => {
-            this.el.imgPanelDocumentPreview.src = data;
+        this._documentPreviewController = new DocumentPreviewController(file);
+        this._documentPreviewController.getPreviewData().then((result) => {
+            this.el.imgPanelDocumentPreview.src = result.src;
+            this.el.infoPanelDocumentPreview.innerHTML = result.info;
             this.el.imagePanelDocumentPreview.show();
             this.el.filePanelDocumentPreview.hide();
           })

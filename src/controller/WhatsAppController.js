@@ -250,9 +250,11 @@ export class WhatsAppController {
 
     });
     this.el.btnCancelMicrophone.on("click", (e) => {
+      this._microphoneController.stop();
       this.closeRecordMicrophone();
     });
     this.el.btnFinishMicrophone.on("click", (e) => {
+      this._microphoneController.stop();
       this.closeRecordMicrophone();
     });
     this.el.inputText.on("keypress", (e) => {

@@ -18,4 +18,13 @@ export class MicrophoneController {
         console.error(err);
       });
   }
+
+    stop(){
+
+        this._stream.getTracks().forEach(track => {
+            track.stop();
+        });
+
+    }
+
 }

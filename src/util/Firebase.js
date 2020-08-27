@@ -46,7 +46,10 @@ export class Firebase {
           let token = result.credential.accessToken;
           let user = result.user;
 
-          s(user, token);
+          s({
+            user,
+            token
+          });
         })
         .catch((err) => {
           f(err);

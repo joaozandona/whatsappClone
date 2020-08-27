@@ -7,11 +7,25 @@ import { Firebase } from "./../util/Firebase.js";
 export class WhatsAppController {
   constructor() {
 
+    console.log('WhatsappController OK')
+
+    this._firebase = new Firebase();
+    this.initAuth();
     this.elementsPrototype();
     this.loadElements();
     this.initEvents();
-    this._firebase = new Firebase();
-    
+
+  }
+
+  initAuth() {
+    this._firebase
+      .initAuth()
+      .then((response) => {
+        console.log('response', response);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   loadElements() {
@@ -249,20 +263,15 @@ export class WhatsAppController {
 
       this._microphoneController = new MicrophoneController();
 
-      this._microphoneController.on('ready', audio=>{
-
-        console.log('ready event');
+      this._microphoneController.on("ready", (audio) => {
+        console.log("ready event");
 
         this._microphoneController.startRecorder();
-
       });
 
-      this._microphoneController.on('recordtimer', timer => {
-
+      this._microphoneController.on("recordtimer", (timer) => {
         this.el.recordMicrophoneTimer.innerHTML = Format.toTime(timer);
-
       });
-
     });
     this.el.btnCancelMicrophone.on("click", (e) => {
       this._microphoneController.stopRecorder();

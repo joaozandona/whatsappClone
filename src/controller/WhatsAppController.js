@@ -24,7 +24,7 @@ export class WhatsAppController {
 
         this._user.on("datachange", (data) => {
           document.querySelector("title").innerHTML =
-            data.name + " -WhatsAppClone";
+            data.name + " - WhatsAppClone";
 
             this.el.inputNamePanelEditProfile.innerHTML = data.name;
 

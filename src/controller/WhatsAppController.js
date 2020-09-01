@@ -26,7 +26,7 @@ export class WhatsAppController {
           document.querySelector("title").innerHTML =
             data.name + " -WhatsAppClone";
 
-            this.el.inputNmePanelEditProfile = data.name;
+            this.el.inputNamePanelEditProfile.innerHTML = data.name;
 
             if(data.photo){
               let photo = this.el.imgPanelEditProfile;
@@ -42,9 +42,17 @@ export class WhatsAppController {
 
         });
 
-        this.el.appContent.css({
-          display: 'flex'
-        });
+        this._user.name = response.user.displayName;
+        this._user.email = response.user.email;
+        this._user.photo = response.user.photoURL;
+
+        this._user.save().then(()=>{
+
+          this.el.appContent.css({
+            display: 'flex'
+          });
+
+        })
 
       })
       .catch((err) => {

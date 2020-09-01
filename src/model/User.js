@@ -27,6 +27,8 @@ export class User extends Model {
 
                 this.fromJSON(doc.data());
 
+                s(doc);
+
             }).catch(err=>{
                 f(err);
             });

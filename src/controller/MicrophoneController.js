@@ -1,4 +1,4 @@
-import { ClassEvent } from "../util/classEvent";
+import { ClassEvent } from "../util/ClassEvent";
 
 export class MicrophoneController extends ClassEvent {
   constructor(audioEl) {

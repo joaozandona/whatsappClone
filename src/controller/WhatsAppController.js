@@ -4,6 +4,7 @@ import { MicrophoneController } from "./MicrophoneController.js";
 import { DocumentPreviewController } from "./DocumentPreviewController.js";
 import { Firebase } from "./../util/Firebase.js";
 import { User } from "../model/User.js";
+import { Chat } from "../model/Chat.js";
 
 export class WhatsAppController {
   constructor() {
@@ -118,35 +119,32 @@ export class WhatsAppController {
         </div>
     `;
 
-    if(contact.photo){
-      let img = div.querySelector('.photo');
-      img.src = contact.photo;
-      img.show();
-    }
+        if (contact.photo) {
+          let img = div.querySelector(".photo");
+          img.src = contact.photo;
+          img.show();
+        }
 
-    div.on('click', e=> {
+        div.on("click", (e) => {
+          this.el.activeName.innerHTML = contact.name;
+          this.el.activeStatus.innerHTML = contact.status;
 
-      this.el.activeName.innerHTML = contact.name;
-      this.el.activeStatus.innerHTML = contact.status;
+          if (contact.photo) {
+            let img = this.el.activePhoto;
+            console.log(contact.photo);
+            let imagem = contact.photo;
+            img.src = imagem;
+            img.show();
+          }
 
-      if(contact.photo){
-        let img = this.el.activePhoto;
-        console.log(contact.photo)
-        let imagem = contact.photo;
-        img.src = imagem;
-        img.show();
-      }
+          this.el.home.hide();
+          this.el.main.css({
+            display: "flex",
+          });
+        });
 
-      this.el.home.hide();
-      this.el.main.css({
-        display: 'flex'
-      })
-
-    });
-
-    this.el.contactsMessagesList.appendChild(div);
-  
-  });
+        this.el.contactsMessagesList.appendChild(div);
+      });
     });
 
     this._user.getContacts();
@@ -266,10 +264,17 @@ export class WhatsAppController {
 
       contact.on("datachange", (data) => {
         if (data.name) {
-          this._user.addContact(contact).then(() => {
-            this.el.btnClosePanelAddContact.click();
+          Chat.createIfNotExists(this._user.email, contact.email).then((chat) => {
+            contact.chatId = chat.id;
 
-            console.info("Contato foi adicionado!");
+            this._user.chatId = chat.id;
+
+            contact.addContact(this._user);
+            
+            this._user.addContact(contact).then(() => {
+              this.el.btnClosePanelAddContact.click();
+              console.info("Contato foi adicionado!");
+            });
           });
         } else {
           console.error("Usuário não foi encontrado");

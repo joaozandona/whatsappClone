@@ -5,6 +5,7 @@ import { DocumentPreviewController } from "./DocumentPreviewController.js";
 import { Firebase } from "./../util/Firebase.js";
 import { User } from "../model/User.js";
 import { Chat } from "../model/Chat.js";
+import { Message } from "../model/Message.js";
 
 export class WhatsAppController {
   constructor() {
@@ -126,7 +127,23 @@ export class WhatsAppController {
         }
 
         div.on("click", (e) => {
-          this.el.activeName.innerHTML = contact.name;
+          
+          this.setActiveChat(contact)
+
+        });
+
+        this.el.contactsMessagesList.appendChild(div);
+      });
+    });
+
+    this._user.getContacts();
+  }
+
+  setActiveChat(contact){
+
+    this._contactActive = contact;
+
+    this.el.activeName.innerHTML = contact.name;
           this.el.activeStatus.innerHTML = contact.status;
 
           if (contact.photo) {
@@ -141,13 +158,7 @@ export class WhatsAppController {
           this.el.main.css({
             display: "flex",
           });
-        });
 
-        this.el.contactsMessagesList.appendChild(div);
-      });
-    });
-
-    this._user.getContacts();
   }
 
   loadElements() {
@@ -449,7 +460,13 @@ export class WhatsAppController {
       }
     });
     this.el.btnSend.on("click", (e) => {
-      console.log(this.el.inputText.innerHTML);
+
+      Message.send(this._contactActive.chatId, this._user.email, 'text', this.el.inputText.innerHTML);
+      
+      this.el.inputText.innerHTML = '';
+
+      this.el.panelEmojis.removeClass('open');
+
     });
     this.el.btnEmojis.on("click", (e) => {
       this.el.panelEmojis.toggleClass("open");
